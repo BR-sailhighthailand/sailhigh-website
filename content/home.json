@@ -1,0 +1,161 @@
+{
+  "hero": {
+    "headline": "Transforming Operations with Smart AI & Mobility Solutions",
+    "subheadline": "Secure, scalable, and government-ready technology systems that strengthen operations, enhance visibility, and support long-term growth across Thailand.",
+    "description": "Enterprise-grade software · Smart education platforms · Professional IT talent services",
+    "cta_primary": { "label": "Schedule a Consultation", "href": "#contact" },
+    "cta_secondary": { "label": "Explore Solutions", "href": "#solutions" },
+    "trust_line": "Thailand-based · Government-ready · Enterprise-grade"
+  },
+
+  "about_snapshot": {
+    "tag": "About Us",
+    "heading": "A Trusted Technology Partner for Sustainable Digital Growth",
+    "body": "Sail High Software Solutions is a Thailand-based technology company delivering reliable enterprise systems, smart education platforms, and professional IT staffing services to organizations across the country.",
+    "mission_points": [
+      "Improve operational efficiency",
+      "Enable data-driven decision-making",
+      "Strengthen governance and compliance",
+      "Support sustainable growth"
+    ],
+    "principles": [
+      { "label": "Structured", "opposite": "not complicated" },
+      { "label": "Secure", "opposite": "not vulnerable" },
+      { "label": "Practical", "opposite": "not theoretical" },
+      { "label": "Sustainable", "opposite": "not short-term" }
+    ],
+    "cta": { "label": "Learn More About Us", "href": "/about" }
+  },
+
+  "solutions": {
+    "tag": "Our Solutions",
+    "heading": "End-to-End Digital Systems Built for Thailand",
+    "items": [
+      {
+        "id": "enterprise",
+        "number": "01",
+        "title": "Enterprise Systems & AI",
+        "subtitle": "Control, Automation & Intelligence at Scale",
+        "description": "We design and deploy enterprise-grade platforms that enhance control, automation, and decision-making.",
+        "capabilities": [
+          "Enterprise Resource Planning (ERP)",
+          "Sales Force Automation (SFA)",
+          "Last-Mile Delivery & Logistics Platforms",
+          "AI-Driven Business Intelligence & Analytics",
+          "Workflow & Process Automation"
+        ],
+        "impacts": [
+          "Improved reporting accuracy",
+          "Reduced manual processes",
+          "Increased operational transparency",
+          "Real-time performance visibility"
+        ],
+        "target": "Built for growing SMEs and large enterprises requiring reliability and scalability.",
+        "icon": "cpu",
+        "color_accent": "cyan"
+      },
+      {
+        "id": "education",
+        "number": "02",
+        "title": "Smart Education Solutions",
+        "subtitle": "Intelligent Platforms for Modern Institutions",
+        "description": "Our smart classroom and school management systems support structured learning environments, performance tracking, and inclusive education.",
+        "capabilities": [
+          "Smart Classroom Software",
+          "Student Performance Analytics",
+          "School ERP & Administrative Systems",
+          "Attendance & Assessment Management",
+          "Inclusive Learning Modules",
+          "AI-Based Learning Insights"
+        ],
+        "designed_for": [
+          "Public schools",
+          "Private institutions",
+          "Training centers",
+          "Government education programs"
+        ],
+        "note": "We prioritize accessibility, data security, and teacher-friendly implementation.",
+        "icon": "graduation-cap",
+        "color_accent": "emerald"
+      },
+      {
+        "id": "staffing",
+        "number": "03",
+        "title": "IT Staffing & Technology Services",
+        "subtitle": "Skilled Professionals to Support Your Digital Initiatives",
+        "description": "We provide qualified IT specialists and project teams to support implementation, system upgrades, and digital transformation programs.",
+        "capabilities": [
+          "Contract Developers",
+          "ERP Implementation Specialists",
+          "AI & Data Analysts",
+          "Project-Based Technical Teams",
+          "On-Site & Remote Support"
+        ],
+        "note": "Our staffing solutions ensure continuity, technical excellence, and reduced project risk.",
+        "icon": "users",
+        "color_accent": "violet"
+      }
+    ]
+  },
+
+  "implementation": {
+    "tag": "Our Approach",
+    "heading": "Structured. Transparent. Accountable.",
+    "description": "A disciplined methodology that ensures every project is delivered on time, within scope, and built to last.",
+    "steps": [
+      { "number": "01", "title": "Requirements Assessment", "description": "Deep-dive into your operations, goals, and technical environment before any system design begins." },
+      { "number": "02", "title": "System Design & Customization", "description": "Architecture and workflow tailored to your specific industry and organizational structure." },
+      { "number": "03", "title": "Secure Deployment", "description": "Controlled rollout with security-first configuration and data migration protocols." },
+      { "number": "04", "title": "Training & Knowledge Transfer", "description": "Hands-on training for your team ensuring full adoption and operational independence." },
+      { "number": "05", "title": "Ongoing Maintenance & Support", "description": "Long-term SLA-backed support with defined response times and system health monitoring." }
+    ],
+    "footer_note": "Each project is delivered with clear governance, documented milestones, and defined service level agreements (SLAs)."
+  },
+
+  "industries": {
+    "tag": "Industries We Serve",
+    "heading": "Built for Thailand's Key Sectors",
+    "items": [
+      { "label": "Distribution & Wholesale", "icon": "truck" },
+      { "label": "Manufacturing", "icon": "factory" },
+      { "label": "Retail", "icon": "shopping-cart" },
+      { "label": "Logistics & Supply Chain", "icon": "package" },
+      { "label": "Educational Institutions", "icon": "book-open" },
+      { "label": "Public Sector Organizations", "icon": "landmark" }
+    ]
+  },
+
+  "why_choose": {
+    "tag": "Why Sail High",
+    "heading": "We Focus on Measurable Value — Not Complexity",
+    "items": [
+      { "title": "Thailand-Based Technology Partner", "description": "Local expertise with deep understanding of Thai business and regulatory environments.", "icon": "map-pin" },
+      { "title": "Government-Ready Implementation Model", "description": "Structured governance, compliance documentation, and accountability frameworks built in.", "icon": "shield-check" },
+      { "title": "Practical & Scalable Systems", "description": "Solutions designed to grow with your organization — no over-engineering.", "icon": "trending-up" },
+      { "title": "Experienced Technical Teams", "description": "Specialists across ERP, AI, logistics, and education technology domains.", "icon": "users-2" },
+      { "title": "Long-Term Support Commitment", "description": "Post-deployment SLAs, training, and system evolution support — not just delivery.", "icon": "handshake" }
+    ]
+  },
+
+  "security": {
+    "tag": "Security & Compliance",
+    "heading": "Data Protection Built Into Every System",
+    "description": "We understand the importance of data protection and institutional governance.",
+    "items": [
+      "Secure system architecture",
+      "Data privacy standards",
+      "Access control management",
+      "Cloud & On-Premise deployment options",
+      "Long-term system support"
+    ],
+    "note": "Our solutions are designed to align with institutional requirements and regulatory standards."
+  },
+
+  "contact_cta": {
+    "tag": "Contact Us",
+    "heading": "Ready to Strengthen Your Digital Infrastructure?",
+    "description": "Partner with Sail High Software Solutions to implement reliable systems that support efficiency, accountability, and growth.",
+    "cta": { "label": "Schedule a Consultation", "href": "#contact" },
+    "email": "Hello@sailhighthailand.com"
+  }
+}

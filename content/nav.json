@@ -1,0 +1,19 @@
+{
+  "logo": { "text": "Sail High", "tagline": "Software Solutions" },
+  "links": [
+    { "label": "Home", "href": "/" },
+    {
+      "label": "Solutions", "href": "/solutions",
+      "children": [
+        { "label": "Enterprise & AI Systems", "href": "/solutions/enterprise-ai" },
+        { "label": "Smart Education Systems", "href": "/solutions/education" },
+        { "label": "IT Staffing & Talent Services", "href": "/solutions/staffing" }
+      ]
+    },
+    { "label": "Industries", "href": "/industries" },
+    { "label": "Implementation Approach", "href": "/implementation" },
+    { "label": "Security & Compliance", "href": "/security" },
+    { "label": "About Us", "href": "/about" },
+    { "label": "Contact", "href": "/contact", "highlight": true }
+  ]
+}
