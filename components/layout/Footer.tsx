@@ -148,9 +148,14 @@ export default function Footer() {
             gap: '8px',
           }}
         >
-          <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--text-muted)' }}>
-            {footerData.copyright}
-          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--text-muted)' }}>
+              {footerData.copyright}
+            </p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--text-muted)' }}>
+              Registration No. {footerData.company_reg}
+            </p>
+          </div>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--text-muted)' }}>
             {footerData.built_in}
           </p>

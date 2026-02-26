@@ -74,31 +74,22 @@ export default function Header() {
           }}
         >
           {/* Logo */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: 0 }}>
-            <span
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={navData.logo.src}
+              alt={`${navData.logo.text} ${navData.logo.tagline}`}
               style={{
-                fontFamily: 'var(--font-heading)',
-                fontWeight: 700,
-                fontSize: '20px',
-                color: onDark ? '#F0F4FF' : 'var(--text-primary)',
-                lineHeight: 1.1,
-                transition: 'color 0.3s',
+                height: '130px',
+                width: 'auto',
+                display: 'block',
+                // On dark hero: lift brightness so navy portions don't wash into background
+                filter: onDark
+                  ? 'brightness(1.25) drop-shadow(0 1px 6px rgba(0,0,0,0.35))'
+                  : 'none',
+                transition: 'filter 0.3s',
               }}
-            >
-              {navData.logo.text}
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '11px',
-                color: onDark ? OVER_DARK.textMuted : 'var(--text-muted)',
-                lineHeight: 1.2,
-                letterSpacing: '0.06em',
-                transition: 'color 0.3s',
-              }}
-            >
-              {navData.logo.tagline}
-            </span>
+            />
           </Link>
 
           {/* Desktop Nav */}

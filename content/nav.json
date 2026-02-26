@@ -1,5 +1,5 @@
 {
-  "logo": { "text": "Sail High", "tagline": "Software Solutions" },
+  "logo": { "text": "Sail High", "tagline": "Software Solutions", "src": "/sailhigh-website/images/logo.svg" },
   "links": [
     { "label": "Home", "href": "/" },
     {
