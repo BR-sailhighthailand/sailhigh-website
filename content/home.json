@@ -5,7 +5,13 @@
     "description": "Enterprise-grade software · Smart education platforms · Professional IT talent services",
     "cta_primary": { "label": "Schedule a Consultation", "href": "#contact" },
     "cta_secondary": { "label": "Explore Solutions", "href": "#solutions" },
-    "trust_line": "Thailand-based · Government-ready · Enterprise-grade"
+    "trust_line": "Thailand-based · Government-ready · Enterprise-grade",
+    "background": {
+      "type": "video",
+      "src": "/sailhigh-website/videos/hero-bg.mp4",
+      "poster": "/sailhigh-website/images/hero-bg.jpg",
+      "imgsrc": "/sailhigh-website/images/hero-bg.jpg"
+    }
   },
 
   "about_snapshot": {
@@ -24,7 +30,7 @@
       { "label": "Practical", "opposite": "not theoretical" },
       { "label": "Sustainable", "opposite": "not short-term" }
     ],
-    "cta": { "label": "Learn More About Us", "href": "/about" }
+    "cta": { "label": "Learn More About Us", "href": "/#about" }
   },
 
   "solutions": {

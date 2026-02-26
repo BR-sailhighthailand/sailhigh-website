@@ -5,6 +5,12 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import gsap from 'gsap'
 
+interface HeroBackground {
+  type: string        // 'video' | 'image'
+  src: string
+  poster?: string
+}
+
 interface HeroProps {
   headline: string
   subheadline: string
@@ -12,6 +18,7 @@ interface HeroProps {
   trust_line: string
   cta_primary: { label: string; href: string }
   cta_secondary: { label: string; href: string }
+  background?: HeroBackground
 }
 
 export default function HeroSection({
@@ -21,28 +28,36 @@ export default function HeroSection({
   trust_line,
   cta_primary,
   cta_secondary,
+  background,
 }: HeroProps) {
   const headlineRef = useRef<HTMLHeadingElement>(null)
+  const videoRef    = useRef<HTMLVideoElement>(null)
   const { scrollY } = useScroll()
   const chevronOpacity = useTransform(scrollY, [0, 300], [1, 0])
 
+  // GSAP word-by-word headline animation
   useEffect(() => {
     const el = headlineRef.current
     if (!el) return
-
     const words = el.querySelectorAll('.word')
     gsap.fromTo(
       words,
       { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        stagger: 0.06,
-        ease: 'power3.out',
-        delay: 0.2,
-      }
+      { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, ease: 'power3.out', delay: 0.2 }
     )
+  }, [])
+
+  // Respect prefers-reduced-motion — pause video if user prefers no motion
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (mq.matches) video.pause()
+    const handler = (e: MediaQueryListEvent) => {
+      e.matches ? video.pause() : video.play().catch(() => {})
+    }
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
   }, [])
 
   const words = headline.split(' ')
@@ -60,17 +75,76 @@ export default function HeroSection({
         overflow: 'hidden',
       }}
     >
-      {/* Radial glow overlay */}
+      {/* ── Background layer (video or image, driven by home.json) ── */}
+      {background?.type === 'video' && (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={background.poster}
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            pointerEvents: 'none',
+          }}
+        >
+          <source src={background.src} type="video/mp4" />
+        </video>
+      )}
+
+      {background?.type === 'image' && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={background.src}
+          alt=""
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
+
+      {/* Dark overlay — lets background show while keeping text legible */}
+      {background && (
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(5, 14, 31, 0.62)',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
+
+      {/* Radial cyan glow — always applied, always visible */}
       <div
+        aria-hidden
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse at 50% 60%, var(--accent-glow), transparent 70%)',
+          background: 'radial-gradient(ellipse at 50% 60%, rgba(104,230,237,0.14), transparent 70%)',
           pointerEvents: 'none',
         }}
       />
 
+      {/* ── Content ── */}
       <div style={{ maxWidth: '900px', margin: '0 auto', width: '100%', position: 'relative' }}>
+
         {/* Trust line pill */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -86,9 +160,9 @@ export default function HeroSection({
               fontWeight: 500,
               textTransform: 'uppercase',
               letterSpacing: '0.12em',
-              color: 'var(--accent)',
-              background: 'var(--color-cyan-bg)',
-              border: '1px solid var(--color-cyan-border)',
+              color: '#68E6ED',
+              background: 'rgba(104,230,237,0.12)',
+              border: '1px solid rgba(104,230,237,0.35)',
               borderRadius: '4px',
               padding: '4px 12px',
             }}
@@ -106,7 +180,7 @@ export default function HeroSection({
             fontSize: 'clamp(36px, 5.5vw, 70px)',
             lineHeight: 1.1,
             letterSpacing: '-0.03em',
-            color: 'var(--text-primary)',
+            color: '#F0F4FF',
             marginBottom: '28px',
           }}
         >
@@ -129,7 +203,7 @@ export default function HeroSection({
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: 'clamp(16px, 2vw, 20px)',
-            color: 'var(--text-secondary)',
+            color: 'rgba(255,255,255,0.82)',
             lineHeight: 1.75,
             maxWidth: '720px',
             marginBottom: '16px',
@@ -138,7 +212,7 @@ export default function HeroSection({
           {subheadline}
         </motion.p>
 
-        {/* Description dot-separated */}
+        {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -146,7 +220,7 @@ export default function HeroSection({
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: '14px',
-            color: 'var(--text-muted)',
+            color: 'rgba(255,255,255,0.62)',
             marginBottom: '40px',
             letterSpacing: '0.02em',
           }}
@@ -165,8 +239,8 @@ export default function HeroSection({
             href={cta_primary.href}
             style={{
               display: 'inline-block',
-              background: 'var(--accent)',
-              color: 'var(--cta-text)',
+              background: '#68E6ED',
+              color: '#050E1F',
               fontFamily: 'var(--font-heading)',
               fontWeight: 600,
               fontSize: '15px',
@@ -177,7 +251,7 @@ export default function HeroSection({
               letterSpacing: '0.01em',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 40px var(--accent-glow)'
+              e.currentTarget.style.boxShadow = '0 0 40px rgba(104,230,237,0.40)'
               e.currentTarget.style.transform = 'translateY(-1px)'
             }}
             onMouseLeave={(e) => {
@@ -192,23 +266,23 @@ export default function HeroSection({
             style={{
               display: 'inline-block',
               background: 'transparent',
-              color: 'var(--cta-secondary-text)',
+              color: 'rgba(255,255,255,0.88)',
               fontFamily: 'var(--font-heading)',
               fontWeight: 500,
               fontSize: '15px',
               padding: '16px 32px',
               borderRadius: '8px',
               textDecoration: 'none',
-              border: '1px solid var(--cta-secondary-border)',
+              border: '1px solid rgba(255,255,255,0.22)',
               transition: 'border-color 0.3s, color 0.3s',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent)'
-              e.currentTarget.style.color = 'var(--accent)'
+              e.currentTarget.style.borderColor = 'rgba(104,230,237,0.70)'
+              e.currentTarget.style.color = '#68E6ED'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--cta-secondary-border)'
-              e.currentTarget.style.color = 'var(--cta-secondary-text)'
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)'
+              e.currentTarget.style.color = 'rgba(255,255,255,0.88)'
             }}
           >
             {cta_secondary.label}
@@ -229,7 +303,7 @@ export default function HeroSection({
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ color: 'var(--text-muted)' }}
+          style={{ color: 'rgba(255,255,255,0.45)' }}
         >
           <ChevronDown size={36} />
         </motion.div>

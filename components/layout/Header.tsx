@@ -18,6 +18,15 @@ interface NavLink {
   children?: NavChild[]
 }
 
+// Colors used when header is transparent (floating over the dark hero photo)
+const OVER_DARK = {
+  text:        'rgba(255,255,255,0.88)',
+  textMuted:   'rgba(255,255,255,0.50)',
+  accent:      '#68E6ED',
+  accentBorder:'rgba(104,230,237,0.40)',
+  accentBg:    'rgba(104,230,237,0.10)',
+}
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -34,6 +43,9 @@ export default function Header() {
   }, [mobileOpen])
 
   const links: NavLink[] = navData.links
+
+  // True when header is transparent and floating over the hero photo
+  const onDark = !scrolled && !mobileOpen
 
   return (
     <>
@@ -68,8 +80,9 @@ export default function Header() {
                 fontFamily: 'var(--font-heading)',
                 fontWeight: 700,
                 fontSize: '20px',
-                color: 'var(--text-primary)',
+                color: onDark ? '#F0F4FF' : 'var(--text-primary)',
                 lineHeight: 1.1,
+                transition: 'color 0.3s',
               }}
             >
               {navData.logo.text}
@@ -78,16 +91,17 @@ export default function Header() {
               style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '11px',
-                color: 'var(--text-muted)',
+                color: onDark ? OVER_DARK.textMuted : 'var(--text-muted)',
                 lineHeight: 1.2,
                 letterSpacing: '0.06em',
+                transition: 'color 0.3s',
               }}
             >
               {navData.logo.tagline}
             </span>
           </Link>
 
-          {/* Desktop Nav — no display in inline style; Tailwind class controls visibility */}
+          {/* Desktop Nav */}
           <nav
             role="navigation"
             aria-label="Main navigation"
@@ -112,7 +126,9 @@ export default function Header() {
                         gap: '4px',
                         fontFamily: 'var(--font-body)',
                         fontSize: '14px',
-                        color: dropdownOpen ? 'var(--accent)' : 'var(--text-secondary)',
+                        color: dropdownOpen
+                          ? (onDark ? OVER_DARK.accent : 'var(--accent)')
+                          : (onDark ? OVER_DARK.text : 'var(--text-secondary)'),
                         background: 'none',
                         border: 'none',
                         cursor: 'pointer',
@@ -203,21 +219,21 @@ export default function Header() {
                       alignItems: 'center',
                       fontFamily: 'var(--font-body)',
                       fontSize: '14px',
-                      color: 'var(--accent)',
+                      color: onDark ? OVER_DARK.accent : 'var(--accent)',
                       textDecoration: 'none',
-                      border: '1px solid var(--border-accent)',
+                      border: `1px solid ${onDark ? OVER_DARK.accentBorder : 'var(--border-accent)'}`,
                       borderRadius: '6px',
                       padding: '7px 18px',
-                      transition: 'background 0.2s, border-color 0.2s',
+                      transition: 'background 0.2s, border-color 0.2s, color 0.3s',
                       minHeight: '44px',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--color-cyan-bg)'
-                      e.currentTarget.style.borderColor = 'var(--accent)'
+                      e.currentTarget.style.background = onDark ? OVER_DARK.accentBg : 'var(--color-cyan-bg)'
+                      e.currentTarget.style.borderColor = onDark ? OVER_DARK.accent : 'var(--accent)'
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = 'transparent'
-                      e.currentTarget.style.borderColor = 'var(--border-accent)'
+                      e.currentTarget.style.borderColor = onDark ? OVER_DARK.accentBorder : 'var(--border-accent)'
                     }}
                   >
                     {link.label}
@@ -234,13 +250,13 @@ export default function Header() {
                     alignItems: 'center',
                     fontFamily: 'var(--font-body)',
                     fontSize: '14px',
-                    color: 'var(--text-secondary)',
+                    color: onDark ? OVER_DARK.text : 'var(--text-secondary)',
                     textDecoration: 'none',
                     transition: 'color 0.2s',
                     minHeight: '44px',
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = onDark ? OVER_DARK.accent : 'var(--accent)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = onDark ? OVER_DARK.text : 'var(--text-secondary)' }}
                 >
                   {link.label}
                 </Link>
@@ -248,7 +264,7 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Hamburger — className controls display, no display in inline style */}
+          {/* Hamburger */}
           <button
             className="flex md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -258,7 +274,7 @@ export default function Header() {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: 'var(--text-primary)',
+              color: onDark ? '#F0F4FF' : 'var(--text-primary)',
               padding: '4px',
               minWidth: '44px',
               minHeight: '44px',
@@ -266,6 +282,7 @@ export default function Header() {
               justifyContent: 'center',
               position: 'relative',
               zIndex: 60,
+              transition: 'color 0.3s',
             }}
           >
             <AnimatePresence mode="wait">
@@ -295,10 +312,7 @@ export default function Header() {
         </div>
       </motion.header>
 
-      {/*
-        Full-screen mobile overlay — sits below the header bar, fully opaque,
-        so page content never bleeds through and text is always crisp.
-      */}
+      {/* Full-screen mobile overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -322,7 +336,6 @@ export default function Header() {
               flexDirection: 'column',
             }}
           >
-            {/* Nav links */}
             <div style={{ flex: 1, padding: '32px 32px 24px' }}>
               {links.map((link, i) => (
                 <motion.div
@@ -382,7 +395,6 @@ export default function Header() {
               ))}
             </div>
 
-            {/* Bottom strip — brand anchor */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
